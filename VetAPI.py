@@ -43,6 +43,8 @@ def home():
     "<h1>Welcome to our virtual veterinary practice API</h1><p>See information on our <a href='/api/animals')>animals</a> and <a href='/api/customers')>customers</a>.</p>"
     "<p>We provide a standard REST API.</p>"
     "<p>Animals can also be <a href='/api/animals/agequery?age=10')>queried via age.</a></p>"
+    "<a href='/api/customers/3'>Customer example</a> <br>"
+    "<a href='/api/animals/3'>Animal example</a>"
     )
 
 # A route to return all of the available entries in our collection of pet owners.
