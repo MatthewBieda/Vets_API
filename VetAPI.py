@@ -16,7 +16,10 @@ PetOwners = [
     {'id': 2,
      'name': 'Gareth'},
     {'id': 3,
-     'name': 'Matt'}
+     'name': 'Matt'},
+    {'id': 4,
+    'name': 'Connor'
+    }
 ]
 
 Animals = animal_list
@@ -89,6 +92,7 @@ def animals_api_unique(id):
     #Take id from url and return corresponding json object
     object = Animals[id]
     available_attributes = vars(object)
+    print(available_attributes)
     #Vars calls __dict__ method on our object under the hood
     return available_attributes
 
@@ -117,6 +121,5 @@ def animals_by_age():
     if len(results) == 0:
         return("<h1>No animals found which match that query</h1>")
     return jsonify(results)
-
 
 app.run()

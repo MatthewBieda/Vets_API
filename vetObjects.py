@@ -21,8 +21,12 @@ print(Birdie.grow())
 print(Birdie.name)
 print(Birdie.eat())
 
-animal_list = [Allie, Rex, Goldie, Birdie]
+MrPaws = Cat("MrPaws", 3, "Black")
+
+animal_list = [Allie, Rex, Goldie, Birdie, MrPaws]
 for id, animal in enumerate(animal_list):
     print(id)
     print(animal)
+
+
 
