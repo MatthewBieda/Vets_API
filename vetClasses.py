@@ -2,13 +2,16 @@
 #Attributes are only defined in concrete classes
 
 from abc import ABC, abstractmethod
-from unicodedata import name
 
 #Class definitions
 class Animal(ABC):
     #Constructor
-    def __init__(self):
-        self.value = "Animal"
+    value = "Animal"
+    def __init__(self, name, age, color, breed):
+        self.name = name
+        self.age = age
+        self.color = color
+        self.breed = breed
 
     #Methods
     @abstractmethod
@@ -37,13 +40,11 @@ class Animal(ABC):
 
 class Bird(Animal):
     #Constructor
-    def __init__(self, wingspan, location, color, type, name):
-        self.value = "Bird"
+    value = "Bird"
+    def __init__(self, name, age, color, breed, wingspan, location):
+        super().__init__(name, age, color, breed)
         self.wingspan = wingspan
         self.location = location
-        self.color = color
-        self.type = type
-        self.name = name
 
     #Methods
     def eat(self):
@@ -60,8 +61,9 @@ class Bird(Animal):
 
 class Mammal(Animal):
     #Constructor
-    def __init__(self):
-        self.value = "Mammal"
+    value = "Mammal"
+    def __init__(self, name, age, color, breed):
+        super().__init__(name, age, color, breed)
 
     #Methods
     @abstractmethod
@@ -79,8 +81,10 @@ class Mammal(Animal):
 
 class Fish(Animal):
     #Constructor
-    def __init__(self):
-        self.value = "Mammal"
+    value = "Fish"
+    def __init__(self, name, age, color, breed, location):
+        super().__init__(name, age, color, breed)
+        self.location = location
 
     #Methods
     @abstractmethod
@@ -98,11 +102,9 @@ class Fish(Animal):
 
 class Cat(Mammal):
     #Constructor
-    def __init__(self, name, age, color):
-        self.value = "Cat"
-        self.name = name
-        self.age = age
-        self.color = color
+    value = "Cat"
+    def __init__(self, name, age, color, breed):
+        super().__init__(name, age, color, breed)
 
     #Methods
     def __str__(self):
@@ -114,15 +116,11 @@ class Cat(Mammal):
     def eat(self):
         return(f"{self.name} eats mice")
 
-
-
 class Dog(Mammal):
     #Constructor
-    def __init__(self, name, age, color):
-        self.value = "Dog"
-        self.name = name
-        self.age = age
-        self.color = color
+    value = "Dog"
+    def __init__(self, name, age, color, breed):
+        super().__init__(name, age, color, breed)
 
     #Methods
     def __str__(self):
@@ -136,12 +134,9 @@ class Dog(Mammal):
 
 class AFish(Fish):
     #Constructor
-    def __init__(self, name, type, color, region):
-        self.value = "Fish"
-        self.name = name
-        self.type = type
-        self.color = color
-        self.region = region
+    value = "Fish"
+    def __init__(self, name, age, color, breed, location):
+        super().__init__(name, age, color, breed, location)
 
     #Methods
     def __str__(self):
@@ -158,8 +153,9 @@ class AFish(Fish):
 
 class ABird(Bird):
     #Constructor
-    def __init__(self, wingspan, location, color, type, name):
-        super(ABird, self).__init__(wingspan, location, color, type, name)
+    value = "Bird"
+    def __init__(self, name, age, color, breed, wingspan, location):
+        super().__init__(name, age, color, breed, wingspan, location)
 
     #Methods
     def __str__(self):
