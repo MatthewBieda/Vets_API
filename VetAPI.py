@@ -10,25 +10,13 @@ app.config["DEBUG"] = True
 # Create some test data for our program.  In the real world we would want this to be made or come from another source such as a database
 PetOwners = [
     {'id': 0,
-     'name': 'Keiran',
-     'pet_name': 'Seal hunter',
-     'pet_type': 'Otter',
-     'last_visit_was_for': 'Castration'},
+     'name': 'Keiran'},
     {'id': 1,
-     'name': 'Ahmed',
-     'pet_name': 'Mac',
-     'pet_type': 'Tortoise',
-     'last_visit_was_for': 'Being slow even for a tortoise'},
+     'name': 'Ahmed'},
     {'id': 2,
-     'name': 'Gareth',
-     'pet_name': 'Captain Jazzy Pants',
-     'pet_type': 'Cat',
-     'last_visit_was_for': 'Dog bite'},
+     'name': 'Gareth'},
     {'id': 3,
-     'name': 'Matt',
-     'pet_name': 'Rex',
-     'pet_type': 'Dog',
-     'last_visit_was_for': 'Fever'},
+     'name': 'Matt'}
 ]
 
 Animals = animal_list
@@ -42,6 +30,11 @@ for id, animal in enumerate(Animals):
 
 print(Animals_JSON)
 
+#Mapping owners to pets
+for i in range(len(Animals)):
+    PetOwners[i]["owner of"] = str(Animals[i])
+
+print(PetOwners)
 
 
 @app.route('/', methods=['GET']) #tell which HTTP method we are using (GET) and what route (extra bit of the URL) this method will be activated on.  In this case nothing and so home
@@ -59,6 +52,9 @@ def api_all():
 
 @app.route('/api/customers/<int:id>', methods=['GET'])
 def get_owner_by_id(id):
+    if id >= len(PetOwners):
+        return("<h1>ID is invalid</h1>")
+
     # Create an empty list for our results
     results = []
 
