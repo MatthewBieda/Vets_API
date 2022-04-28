@@ -24,9 +24,6 @@ print(Birdie.eat())
 MrPaws = Cat("MrPaws", 3, "Black", "Persian")
 
 animal_list = [Allie, Rex, Goldie, Birdie, MrPaws]
-for id, animal in enumerate(animal_list):
-    print(id)
-    print(animal)
 
 
 

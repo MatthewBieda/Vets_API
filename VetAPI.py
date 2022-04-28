@@ -1,43 +1,22 @@
 import flask  
 from flask import request, jsonify
-
+import json
 from vetObjects import animal_list
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
-# Create some test data for our program.  In the real world we would want this to be made or come from another source such as a database
-PetOwners = [
-    {'id': 0,
-     'name': 'Keiran'},
-    {'id': 1,
-     'name': 'Ahmed'},
-    {'id': 2,
-     'name': 'Gareth'},
-    {'id': 3,
-     'name': 'Matt'},
-    {'id': 4,
-    'name': 'Connor'
-    }
-]
+pet_owners_json = open("petowners.json")
+pet_owners_json_read = json.load(pet_owners_json)
+
+animalsjson = open("animals.json")
+Animals_JSON = json.load(animalsjson)
 
 Animals = animal_list
-Animals_JSON = []
-for id, animal in enumerate(Animals):
-    Animals_JSON_iter = {
-        'id': id,
-        'animal': str(animal)
-    }
-    Animals_JSON.append(Animals_JSON_iter)
-
-print(Animals_JSON)
 
 #Mapping owners to pets
 for i in range(len(Animals)):
-    PetOwners[i]["owner of"] = str(Animals[i])
-
-print(PetOwners)
-
+    pet_owners_json_read[i]["owner of"] = str(Animals[i])
 
 @app.route('/', methods=['GET']) #tell which HTTP method we are using (GET) and what route (extra bit of the URL) this method will be activated on.  In this case nothing and so home
 def home():
@@ -52,11 +31,11 @@ def home():
 # A route to return all of the available entries in our collection of pet owners.
 @app.route('/api/customers/', methods=['GET'])
 def api_all():
-    return jsonify(PetOwners)
+    return jsonify(pet_owners_json_read)
 
 @app.route('/api/customers/<int:id>', methods=['GET'])
 def get_owner_by_id(id):
-    if id >= len(PetOwners):
+    if id >= len(pet_owners_json_read):
         return("<h1>ID is invalid</h1>")
 
     # Create an empty list for our results
@@ -64,7 +43,7 @@ def get_owner_by_id(id):
 
     # Loop through the data and match results that fit the requested ID.
     # IDs are unique, but other fields might return many results
-    for PetOwner in PetOwners:
+    for PetOwner in pet_owners_json_read:
         if PetOwner['id'] == id:
             results.append(PetOwner)
 
@@ -95,7 +74,6 @@ def animals_api_unique(id):
     #Vars calls __dict__ method on our object under the hood
     return available_attributes
 
-
 #Adding a route that enables searching for animals by their age
 @app.route('/api/animals/agequery', methods=['GET'])
 def animals_by_age():
@@ -122,3 +100,16 @@ def animals_by_age():
     return jsonify(results)
 
 app.run()
+pet_owners_json.close()
+animalsjson.close()
+
+
+
+#How animalsjson was constructed, more efficient to not repeat this work
+
+#Animals = animal_list
+#Animals_JSON = []
+#for id, animal in enumerate(Animals):
+    #Animals_JSON_iter = 
+    # {'id': id, 'animal': str(animal)}
+    #Animals_JSON.append(Animals_JSON_iter)
