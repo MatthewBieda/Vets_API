@@ -1,9 +1,8 @@
-import flask  
-from flask import request, jsonify
+from flask import Flask, request, jsonify
 import json
 from vetObjects import animal_list
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 app.config["DEBUG"] = True
 
 pet_owners_json = open("petowners.json")
@@ -99,11 +98,11 @@ def animals_by_age():
         return("<h1>No animals found which match that query</h1>")
     return jsonify(results)
 
-app.run()
 pet_owners_json.close()
 animalsjson.close()
 
-
+if __name__ == '__main__':
+    app.run()
 
 #How animalsjson was constructed, more efficient to not repeat this work
 
