@@ -7,13 +7,12 @@ app.config["DEBUG"] = True
 
 pet_owners_json = open("petowners.json")
 pet_owners_json_read = json.load(pet_owners_json)
-
 animalsjson = open("animals.json")
 Animals_JSON = json.load(animalsjson)
 
 Animals = animal_list
 
-#Mapping owners to pets
+# Mapping owners to pets
 for i in range(len(Animals)):
     pet_owners_json_read[i]["owner of"] = str(Animals[i])
 
@@ -26,6 +25,11 @@ def home():
     "<a href='/api/customers/3'>Customer example</a> <br>"
     "<a href='/api/animals/3'>Animal example</a>"
     )
+
+# Redirecting users from base API route
+@app.route('/api/')
+def redirect():
+    return("<h1><a href='/api/animals')>Animals</a> <br><br> <a href='/api/customers')>Customers</a></h1>")
 
 # A route to return all of the available entries in our collection of pet owners.
 @app.route('/api/customers/', methods=['GET'])
@@ -50,30 +54,25 @@ def get_owner_by_id(id):
     # Python dictionaries to the JSON format.
     return jsonify(results)
 
-
-@app.route('/api/')
-def redirect():
-    return("<h1><a href='/api/animals')>Animals</a> <br><br> <a href='/api/customers')>Customers</a></h1>")
-
-#List view for all animals
+# List view for all animals
 @app.route('/api/animals/', methods=['GET'])
 def animals_api_all():
     return jsonify(Animals_JSON)
 
-#Detail view for animals
+# Detail view for animals
 @app.route('/api/animals/<int:id>', methods=['GET'])
 def animals_api_unique(id):
     if id >= len(Animals_JSON):
         return("<h1>ID is invalid</h1>")
 
-    #Take id from url and return corresponding json object
+    # Take id from url and return corresponding json object
     object = Animals[id]
     available_attributes = vars(object)
     print(available_attributes)
-    #Vars calls __dict__ method on our object under the hood
+    # Vars calls __dict__ method on our object under the hood
     return available_attributes
 
-#Adding a route that enables searching for animals by their age
+# Adding a route that enables searching for animals by their age
 @app.route('/api/animals/agequery', methods=['GET'])
 def animals_by_age():
     # Check if an age was provided as part of the URL.
@@ -103,6 +102,7 @@ animalsjson.close()
 
 if __name__ == '__main__':
     app.run()
+    
 
 #How animalsjson was constructed, more efficient to not repeat this work
 
