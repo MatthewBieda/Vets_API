@@ -23,7 +23,7 @@ def home():
     "<p>We provide a standard REST API.</p>"
     "<p>Animals can also be <a href='/api/animals/agequery?age=10')>queried via age.</a></p>"
     "<a href='/api/customers/3'>Customer example</a> <br>"
-    "<a href='/api/animals/3'>Animal example</a>"
+    "<a href='/api/animals/3'>Animal example/a>"
     )
 
 # Redirecting users from base API route
@@ -36,6 +36,7 @@ def redirect():
 def api_all():
     return jsonify(pet_owners_json_read)
 
+# Searching by ID
 @app.route('/api/customers/<int:id>', methods=['GET'])
 def get_owner_by_id(id):
     if id >= len(pet_owners_json_read):
@@ -100,10 +101,10 @@ def animals_by_age():
 pet_owners_json.close()
 animalsjson.close()
 
+
 if __name__ == '__main__':
     app.run()
     
-
 #How animalsjson was constructed, more efficient to not repeat this work
 
 #Animals = animal_list
