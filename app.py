@@ -23,7 +23,7 @@ def home():
     "<p>We provide a standard REST API.</p>"
     "<p>Animals can also be <a href='/api/animals/agequery?age=10')>queried via age.</a></p>"
     "<a href='/api/customers/3'>Customer example</a> <br>"
-    "<a href='/api/animals/3'>Animal example000/a>"
+    "<a href='/api/animals/3'>Animal example TESTING AUTOMATED DEPLOYMENT</a>"
     )
 
 # Redirecting users from base API route
